@@ -255,7 +255,7 @@
 
 .btn-suggestion:hover {
   border-color: var(--primary);
-  color: var(--white);
+  color: #000;
   background: rgba(0, 212, 255, 0.12);
 }
 
