@@ -3,7 +3,6 @@
 Version 3.1 - Railway-ready
 """
 
-import json
 import os
 from pathlib import Path
 
@@ -54,18 +53,9 @@ app = FastAPI(
 
 # CORS — origins read from env so Railway URL can be injected at deploy time
 # Example: ALLOWED_ORIGINS=["https://mychat.up.railway.app"]
-_raw_origins = os.getenv(
-    "ALLOWED_ORIGINS",
-    '["http://localhost:8000","http://localhost:3000","http://127.0.0.1:8000"]'
-)
-try:
-    ALLOWED_ORIGINS = json.loads(_raw_origins)
-except json.JSONDecodeError:
-    ALLOWED_ORIGINS = ["http://localhost:8000"]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=ALLOWED_ORIGINS,
+    allow_origins=["*"],
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
