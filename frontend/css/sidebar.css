@@ -1,30 +1,32 @@
 /* ============================================================
-   SIDEBAR - Personnalités et Historique
+   SIDEBAR — layout sans scroll global
+   Structure flex colonne :
+     btn-new-chat         → taille fixe
+     personalities        → taille fixe (6 boutons toujours visibles)
+     history              → flex:1, prend l'espace restant
+     parameters           → taille fixe
+     btn-toggle-sidebar   → taille fixe, collé en bas
    ============================================================ */
 
-/* Section Personnalités */
-.personalities-section {
-  width: 100%;
-}
-
+/* ── Titres de sections ──────────────────────────────────── */
 .personalities-section h4,
 .history-section h4,
 .parameters-section h4 {
   color: var(--primary);
-  font-size: var(--font-size-xs);
-  margin-top: var(--spacing-md);
-  margin-bottom: var(--spacing-sm);
+  font-size: 0.7rem;
+  margin: 0.6rem 0 0.35rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   font-weight: var(--font-weight-semi-bold);
+  flex-shrink: 0;
 }
 
-/* Bouton Nouveau Chat */
+/* ── Nouveau Chat ────────────────────────────────────────── */
 .btn-new-chat {
   background: var(--primary);
   color: var(--dark);
   border: none;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 0.5rem 0.75rem;
   border-radius: var(--border-radius-md);
   font-weight: var(--font-weight-bold);
   cursor: pointer;
@@ -32,55 +34,45 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-xs);
-  font-size: var(--font-size-base);
+  gap: 0.4rem;
+  font-size: 0.875rem;
   width: 100%;
+  flex-shrink: 0;
+  margin-bottom: 0.2rem;
 }
 
 .btn-new-chat:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
 }
 
-/* Listes */
-.personality-list,
-.history-list,
-.parameter-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+/* ── Section Personnalités — taille fixe ─────────────────── */
+.personalities-section {
+  flex-shrink: 0;
 }
 
 .personality-list {
-  max-height: 260px;
-  overflow-y: auto;
-  padding-right: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  /* Pas d'overflow ici — toutes les 6 personnalités visibles */
 }
 
-.personality-list::-webkit-scrollbar {
-  width: 4px;
-}
-.personality-list::-webkit-scrollbar-thumb {
-  background: var(--primary);
-  border-radius: 2px;
-}
-
-/* Boutons Personnalité */
 .personality-btn {
   background: transparent;
-  border: 2px solid var(--accent);
+  border: 1px solid var(--accent);
   color: white;
-  padding: 0.45rem 0.75rem;
+  padding: 0.35rem 0.6rem;
   border-radius: var(--border-radius-md);
   cursor: pointer;
   transition: all var(--transition-normal);
   font-weight: var(--font-weight-semi-bold);
   text-align: left;
   font-family: var(--font-family);
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  flex-shrink: 0;
 }
 
 .personality-btn:hover {
@@ -93,31 +85,54 @@
   background: var(--primary);
   color: var(--dark);
   border-color: var(--primary);
-  box-shadow: 0 0 10px rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
 }
 
-/* Section Historique */
+/* ── Section Historique — prend l'espace restant ─────────── */
 .history-section {
-  border-top: 2px solid var(--accent);
-  padding-top: var(--spacing-md);
-  margin-top: var(--spacing-md);
+  flex: 1;
+  min-height: 0;        /* indispensable pour que flex:1 puisse réduire */
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(255, 215, 0, 0.4);
+  padding-top: 0.4rem;
+  margin-top: 0.4rem;
+  overflow: hidden;
+}
+
+/* La liste des conversations scrolle en interne si besoin */
+.history-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-right: 2px;
+}
+
+.history-list::-webkit-scrollbar { width: 3px; }
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 2px;
 }
 
 .history-item {
   background: transparent;
   border: 1px solid #555;
   color: #ccc;
-  padding: var(--spacing-xs) var(--spacing-sm);
+  padding: 0.3rem 0.5rem;
   border-radius: var(--border-radius-sm);
   cursor: pointer;
   transition: all var(--transition-fast);
   font-family: var(--font-family);
-  font-size: var(--font-size-xs);
+  font-size: 0.78rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: 0.4rem;
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .history-item:hover {
@@ -136,9 +151,9 @@
 .delete-btn {
   background: none;
   border: none;
-  color: #888;
+  color: #777;
   cursor: pointer;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   padding: 2px 4px;
   border-radius: 3px;
   flex-shrink: 0;
@@ -151,25 +166,32 @@
   background: rgba(255, 107, 107, 0.15);
 }
 
-/* Section Paramètres */
+/* ── Section Paramètres — taille fixe ───────────────────── */
 .parameters-section {
-  border-top: 2px solid var(--accent);
-  padding-top: var(--spacing-md);
-  margin-top: var(--spacing-md);
+  flex-shrink: 0;
+  border-top: 1px solid rgba(255, 215, 0, 0.4);
+  padding-top: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.parameter-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .param-option-btn {
   background: transparent;
-  border: 2px solid var(--accent);
+  border: 1px solid var(--accent);
   color: white;
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 0.35rem 0.6rem;
   border-radius: var(--border-radius-md);
   cursor: pointer;
   transition: all var(--transition-normal);
   font-weight: var(--font-weight-semi-bold);
   text-align: left;
   font-family: var(--font-family);
-  font-size: var(--font-size-sm);
+  font-size: 0.8rem;
 }
 
 .param-option-btn:hover {
@@ -181,40 +203,41 @@
 /* Menu Couleurs */
 .couleur-menu-sidebar {
   display: grid !important;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-xs);
-  margin-top: var(--spacing-sm);
-  padding: var(--spacing-sm);
-  background: rgba(0, 212, 255, 0.1);
+  grid-template-columns: repeat(6, 1fr);   /* 6 couleurs sur une ligne */
+  gap: 0.3rem;
+  margin-top: 0.4rem;
+  padding: 0.4rem;
+  background: rgba(0, 212, 255, 0.08);
   border-radius: var(--border-radius-md);
 }
 
 .couleur-btn {
   width: 100%;
   aspect-ratio: 1;
-  border: 2px solid var(--accent);
-  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
   cursor: pointer;
   transition: all var(--transition-normal);
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .couleur-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.6), inset 0 1px 3px rgba(0, 0, 0, 0.3);
+  transform: scale(1.15);
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
-/* Bouton Masquer */
+/* Bouton Masquer — collé en bas */
 .btn-toggle-sidebar {
   background: transparent;
-  border: 2px solid var(--accent);
+  border: 1px solid var(--accent);
   color: var(--accent);
-  padding: var(--spacing-sm) var(--spacing-md);
+  padding: 0.4rem 0.6rem;
   border-radius: var(--border-radius-md);
   cursor: pointer;
   transition: all var(--transition-normal);
   font-weight: var(--font-weight-bold);
-  margin-top: auto;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  flex-shrink: 0;
   width: 100%;
   font-family: var(--font-family);
 }
