@@ -159,42 +159,61 @@ const CHAT = {
       sendBtn.addEventListener('click', () => this.sendMessage());
     }
 
-    // Boutons de suggestion
+    // Boutons de suggestion — on lit data-question, pas le texte
     document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('btn-suggestion')) {
-        const text = e.target.textContent.trim();
-        const match = text.match(/^[^ ]+ (.+)$/);
-        if (match) {
-          this.askQuestion(match[1]);
-        }
-      }
+      const btn = e.target.closest('.btn-suggestion[data-question]');
+      if (btn) this.askQuestion(btn.dataset.question);
     });
   },
 
   /**
-   * Restaure l'UI
+   * Applique toutes les traductions pour une langue (sans reset du chat)
+   */
+  _applyTranslations(lang) {
+    const t = this.translations[lang] || this.translations.fr;
+
+    const input = document.getElementById('champ-texte');
+    if (input) input.placeholder = t.placeholder || '';
+    const subtitle = document.getElementById('header-subtitle');
+    if (subtitle) subtitle.textContent = t.subtitle || '';
+
+    document.querySelectorAll('.btn-suggestion[data-question]').forEach((btn, i) => {
+      if (t.suggestions?.[i]) {
+        btn.textContent      = t.suggestions[i].label;
+        btn.dataset.question = t.suggestions[i].question;
+      }
+    });
+
+    const s = t.sidebar;
+    if (s) {
+      const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
+      set('.btn-new-chat',               s.newChat);
+      set('.personalities-section h4',   s.personalities);
+      set('.history-section h4',         s.history);
+      set('.parameters-section h4',      s.params);
+      set('#btn-home',                   s.home);
+      set('#btn-toggle-colors',          s.colors);
+      set('.btn-toggle-sidebar',         s.hide);
+      set('#btn-add-content-suggestion', s.add);
+    }
+
+    document.querySelectorAll('.langue-option').forEach(opt => opt.classList.remove('active'));
+    document.querySelector(`.langue-option[data-lang="${lang}"]`)?.classList.add('active');
+
+    if (typeof SIDEBAR !== 'undefined') SIDEBAR.renderPersonalities();
+  },
+
+  /**
+   * Restaure l'UI au chargement
    */
   restoreUI() {
-    const input = document.getElementById('champ-texte');
-    const subtitle = document.getElementById('header-subtitle');
-
-    if (input) {
-      input.placeholder = this.translations[this.currentLanguage]?.placeholder || '';
-    }
-
-    if (subtitle) {
-      subtitle.textContent = this.translations[this.currentLanguage]?.subtitle || '';
-    }
+    this._applyTranslations(this.currentLanguage);
 
     const color = STORAGE.getColor();
-    if (color) {
-      SIDEBAR.setColor(color);
-    }
+    if (color) SIDEBAR.setColor(color);
 
     const emoji = STORAGE.getEmoji();
-    if (emoji) {
-      this.setEmoji(emoji);
-    }
+    if (emoji) this.setEmoji(emoji);
   },
 
   /**
@@ -325,46 +344,8 @@ const CHAT = {
   setLanguage(lang) {
     this.currentLanguage = lang;
     STORAGE.saveLanguage(lang);
-
-    const t = this.translations[lang] || this.translations.fr;
-
-    // Placeholder + sous-titre
-    const input = document.getElementById('champ-texte');
-    if (input) input.placeholder = t.placeholder || '';
-    const subtitle = document.getElementById('header-subtitle');
-    if (subtitle) subtitle.textContent = t.subtitle || '';
-
-    // Boutons de suggestions
-    const suggBtns = document.querySelectorAll('.btn-suggestion[data-question]');
-    suggBtns.forEach((btn, i) => {
-      if (t.suggestions?.[i]) {
-        btn.textContent   = t.suggestions[i].label;
-        btn.dataset.question = t.suggestions[i].question;
-      }
-    });
-
-    // Sidebar
-    const s = t.sidebar;
-    if (s) {
-      const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
-      set('.btn-new-chat',              s.newChat);
-      set('.personalities-section h4', s.personalities);
-      set('.history-section h4',        s.history);
-      set('.parameters-section h4',     s.params);
-      set('#btn-home',                  s.home);
-      set('#btn-toggle-colors',         s.colors);
-      set('.btn-toggle-sidebar',        s.hide);
-      set('#btn-add-content-suggestion', s.add);
-    }
-
-    // Personnalités (noms traduits)
-    SIDEBAR.renderPersonalities();
-
-    // Menu langue
-    document.querySelectorAll('.langue-option').forEach(opt => opt.classList.remove('active'));
-    document.querySelector(`.langue-option[data-lang="${lang}"]`)?.classList.add('active');
+    this._applyTranslations(lang);
     document.getElementById('langue-menu')?.classList.remove('active');
-
     this.reset();
   },
 

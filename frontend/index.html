@@ -171,10 +171,6 @@
 
   <!-- Wiring sans onclick — tout est géré dans app.js -->
   <script>
-    // Suggestions
-    document.querySelectorAll('.btn-suggestion[data-question]').forEach(btn => {
-      btn.addEventListener('click', () => CHAT.askQuestion(btn.dataset.question));
-    });
     // Accueil (sidebar)
     document.getElementById('btn-home')?.addEventListener('click', () => window.location.href = '/');
     // Couleurs (sidebar toggle)
