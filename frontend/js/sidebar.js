@@ -229,7 +229,7 @@ const SIDEBAR = {
     // Fond d'écran (overlay)
     document.documentElement.style.setProperty(
       '--bg-overlay',
-      `linear-gradient(135deg, rgba(${r},${g},${b},0.38) 0%, rgba(12,12,20,0.78) 100%)`
+      `linear-gradient(135deg, rgba(${r},${g},${b},0.22) 0%, rgba(12,12,20,0.38) 100%)`
     );
 
     // Champ de texte
