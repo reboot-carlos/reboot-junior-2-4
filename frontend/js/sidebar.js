@@ -227,10 +227,10 @@ const SIDEBAR = {
       '--input-bg',
       `rgba(${r},${g},${b},0.18)`
     );
-    document.documentElement.style.setProperty(
-      '--chat-bg',
-      `linear-gradient(135deg, rgba(${r},${g},${b},0.55) 0%, rgba(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)},0.75) 100%)`
-    );
+    const zoneChat = document.getElementById('zone-chat');
+    if (zoneChat) {
+      zoneChat.style.background = `linear-gradient(135deg, rgba(${r},${g},${b},0.55) 0%, rgba(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)},0.75) 100%)`;
+    }
 
     STORAGE.saveColor(color);
   },
