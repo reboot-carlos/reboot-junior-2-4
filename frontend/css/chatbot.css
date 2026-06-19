@@ -28,7 +28,7 @@
 #zone-chat {
   width: 100%;
   max-width: var(--chat-max-width);
-  background: linear-gradient(135deg, #1e90ff 0%, #1873cc 100%);
+  background: linear-gradient(135deg, rgba(30,144,255,0.35) 0%, rgba(24,115,204,0.25) 100%);
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-lg);
   min-height: 350px;

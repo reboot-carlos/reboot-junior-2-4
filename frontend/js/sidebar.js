@@ -241,7 +241,7 @@ const SIDEBAR = {
     // Zone de réponse du chatbot
     const zoneChat = document.getElementById('zone-chat');
     if (zoneChat) {
-      const chatGrad = `linear-gradient(135deg, rgba(${r},${g},${b},0.60) 0%, rgba(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)},0.85) 100%)`;
+      const chatGrad = `linear-gradient(135deg, rgba(${r},${g},${b},0.30) 0%, rgba(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)},0.20) 100%)`;
       zoneChat.style.setProperty('background', chatGrad, 'important');
     }
 
