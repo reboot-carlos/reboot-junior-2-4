@@ -147,7 +147,8 @@ const SIDEBAR = {
     const conversations = STORAGE.getConversations();
 
     if (conversations.length === 0) {
-      historyList.innerHTML = '<p style="color: #888; font-size: 0.85rem; text-align: center; padding: 1rem;">Aucune conversation yet</p>';
+      const msg = CHAT.getTranslation('noHistory');
+      historyList.innerHTML = `<p style="color: #888; font-size: 0.85rem; text-align: center; padding: 1rem;">${msg}</p>`;
       return;
     }
 

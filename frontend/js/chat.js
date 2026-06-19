@@ -14,52 +14,117 @@ const CHAT = {
       subtitle: "Demande moi tout",
       welcome: `Hello 👋 Je suis ton chatbot.<br>Écris-moi ce que tu veux !`,
       placeholder: "Écris ton message ici...",
-      envoyer: "Envoyer",
-      btn1: "Coucou",
-      btn2: "Création",
-      btn3: "Créer une image",
-      errorServer: "❌ Le serveur ne répond pas 🔌<br>Vérification:<br>✓ Est-ce que 'python main.py' est lancé?<br>✓ Est-ce que le navigateur est sur http://localhost:8000?<br><br>F12 → Console pour voir les détails"
+      errorServer: "❌ Le serveur ne répond pas 🔌<br>Vérification:<br>✓ Est-ce que 'python main.py' est lancé?<br>✓ Est-ce que le navigateur est sur http://localhost:8000?<br><br>F12 → Console pour voir les détails",
+      suggestions: [
+        { label: '👋 Coucou',   question: 'Coucou' },
+        { label: '🎨 Création', question: 'Parle moi de la création' },
+        { label: '📚 Devoirs',  question: 'Tu peux m\'aider avec mes devoirs?' },
+      ],
+      sidebar: {
+        newChat:       '➕ Nouveau Chat',
+        personalities: '👥 Personnalités',
+        history:       '⏱️ Historique',
+        params:        '⚙️ Paramètres',
+        home:          '🏠 Accueil',
+        colors:        '🎨 Couleurs',
+        hide:          '◀ Masquer',
+        noHistory:     'Aucune conversation',
+        add:           '➕ Ajouter',
+      }
     },
     he: {
       subtitle: "שאל אותי הכל",
       welcome: `שלום 👋 אני הצ'טבוט שלך.<br>כתוב לי מה שאתה רוצה !`,
       placeholder: "כתוב את ההודעה שלך כאן...",
-      envoyer: "שלח",
-      btn1: "שלום",
-      btn2: "יצירה",
-      btn3: "צור תמונה",
-      errorServer: "❌ השרת לא מגיב<br>בדוק: python main.py חייב להיות מריץ"
+      errorServer: "❌ השרת לא מגיב<br>בדוק: python main.py חייב להיות מריץ",
+      suggestions: [
+        { label: '👋 שלום',    question: 'שלום' },
+        { label: '🎨 יצירה',  question: 'ספר לי על יצירה' },
+        { label: '📚 שיעורים', question: 'אתה יכול לעזור לי בשיעורים?' },
+      ],
+      sidebar: {
+        newChat:       '➕ שיחה חדשה',
+        personalities: '👥 אישיויות',
+        history:       '⏱️ היסטוריה',
+        params:        '⚙️ הגדרות',
+        home:          '🏠 בית',
+        colors:        '🎨 צבעים',
+        hide:          '◀ הסתר',
+        noHistory:     'אין שיחות עדיין',
+        add:           '➕ הוסף',
+      }
     },
     en: {
       subtitle: "Ask me anything",
       welcome: `Hello 👋 I'm your chatbot.<br>Tell me what you want !`,
       placeholder: "Write your message here...",
-      envoyer: "Send",
-      btn1: "Hi",
-      btn2: "Creation",
-      btn3: "Create an image",
-      errorServer: "❌ Server not responding 🔌<br>Check: Is 'python main.py' running?"
+      errorServer: "❌ Server not responding 🔌<br>Check: Is 'python main.py' running?",
+      suggestions: [
+        { label: '👋 Hello',    question: 'Hello' },
+        { label: '🎨 Creation', question: 'Tell me about creation' },
+        { label: '📚 Homework', question: 'Can you help me with my homework?' },
+      ],
+      sidebar: {
+        newChat:       '➕ New Chat',
+        personalities: '👥 Personalities',
+        history:       '⏱️ History',
+        params:        '⚙️ Settings',
+        home:          '🏠 Home',
+        colors:        '🎨 Colors',
+        hide:          '◀ Hide',
+        noHistory:     'No conversations yet',
+        add:           '➕ Add',
+      }
     },
     de: {
       subtitle: "Frag mich alles",
       welcome: `Hallo 👋 Ich bin dein Chatbot.<br>Schreib mir, was du möchtest !`,
       placeholder: "Schreib deine Nachricht hier...",
-      envoyer: "Senden",
-      btn1: "Hallo",
-      btn2: "Kreation",
-      btn3: "Bild erstellen",
-      errorServer: "❌ Server antwortet nicht<br>Prüfen: Läuft 'python main.py'?"
+      errorServer: "❌ Server antwortet nicht<br>Prüfen: Läuft 'python main.py'?",
+      suggestions: [
+        { label: '👋 Hallo',        question: 'Hallo' },
+        { label: '🎨 Kreation',     question: 'Erzähl mir von der Kreation' },
+        { label: '📚 Hausaufgaben', question: 'Kannst du mir bei den Hausaufgaben helfen?' },
+      ],
+      sidebar: {
+        newChat:       '➕ Neuer Chat',
+        personalities: '👥 Persönlichkeiten',
+        history:       '⏱️ Verlauf',
+        params:        '⚙️ Einstellungen',
+        home:          '🏠 Startseite',
+        colors:        '🎨 Farben',
+        hide:          '◀ Ausblenden',
+        noHistory:     'Noch keine Gespräche',
+        add:           '➕ Hinzufügen',
+      }
     },
     es: {
       subtitle: "Pregúntame cualquier cosa",
       welcome: `¡Hola 👋 Soy tu chatbot!<br>¡Dime qué quieres !`,
       placeholder: "Escribe tu mensaje aquí...",
-      envoyer: "Enviar",
-      btn1: "Hola",
-      btn2: "Creación",
-      btn3: "Crear imagen",
-      errorServer: "❌ Servidor no responde<br>Verifica: ¿Está 'python main.py' en ejecución?"
+      errorServer: "❌ Servidor no responde<br>Verifica: ¿Está 'python main.py' en ejecución?",
+      suggestions: [
+        { label: '👋 Hola',    question: 'Hola' },
+        { label: '🎨 Creación', question: 'Háblame de la creación' },
+        { label: '📚 Deberes', question: '¿Puedes ayudarme con mis deberes?' },
+      ],
+      sidebar: {
+        newChat:       '➕ Nuevo Chat',
+        personalities: '👥 Personalidades',
+        history:       '⏱️ Historial',
+        params:        '⚙️ Ajustes',
+        home:          '🏠 Inicio',
+        colors:        '🎨 Colores',
+        hide:          '◀ Ocultar',
+        noHistory:     'Sin conversaciones aún',
+        add:           '➕ Añadir',
+      }
     }
+  },
+
+  getTranslation(key) {
+    const t = this.translations[this.currentLanguage] || this.translations.fr;
+    return t.sidebar?.[key] ?? this.translations.fr.sidebar[key];
   },
 
   /**
@@ -261,17 +326,40 @@ const CHAT = {
     this.currentLanguage = lang;
     STORAGE.saveLanguage(lang);
 
-    document.getElementById('zone-chat').innerHTML = '';
+    const t = this.translations[lang] || this.translations.fr;
+
+    // Placeholder + sous-titre
     const input = document.getElementById('champ-texte');
-    if (input) input.placeholder = this.translations[lang]?.placeholder || '';
-
+    if (input) input.placeholder = t.placeholder || '';
     const subtitle = document.getElementById('header-subtitle');
-    if (subtitle) subtitle.textContent = this.translations[lang]?.subtitle || '';
+    if (subtitle) subtitle.textContent = t.subtitle || '';
 
-    // Mark langue menu
+    // Boutons de suggestions
+    const suggBtns = document.querySelectorAll('.btn-suggestion[data-question]');
+    suggBtns.forEach((btn, i) => {
+      if (t.suggestions?.[i]) {
+        btn.textContent   = t.suggestions[i].label;
+        btn.dataset.question = t.suggestions[i].question;
+      }
+    });
+
+    // Sidebar
+    const s = t.sidebar;
+    if (s) {
+      const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
+      set('.btn-new-chat',              s.newChat);
+      set('.personalities-section h4', s.personalities);
+      set('.history-section h4',        s.history);
+      set('.parameters-section h4',     s.params);
+      set('#btn-home',                  s.home);
+      set('#btn-toggle-colors',         s.colors);
+      set('.btn-toggle-sidebar',        s.hide);
+      set('#btn-add-content-suggestion', s.add);
+    }
+
+    // Menu langue
     document.querySelectorAll('.langue-option').forEach(opt => opt.classList.remove('active'));
     document.querySelector(`.langue-option[data-lang="${lang}"]`)?.classList.add('active');
-
     document.getElementById('langue-menu')?.classList.remove('active');
 
     this.reset();
