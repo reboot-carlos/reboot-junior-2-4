@@ -254,9 +254,9 @@
 }
 
 .btn-suggestion:hover {
-  border-color: var(--primary);
+  border-color: #FFD700;
   color: #000;
-  background: rgba(0, 212, 255, 0.12);
+  background: rgba(255, 215, 0, 0.12);
 }
 
 /* Bouton Ajouter dans suggestions */
