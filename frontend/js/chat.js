@@ -357,6 +357,9 @@ const CHAT = {
       set('#btn-add-content-suggestion', s.add);
     }
 
+    // Personnalités (noms traduits)
+    SIDEBAR.renderPersonalities();
+
     // Menu langue
     document.querySelectorAll('.langue-option').forEach(opt => opt.classList.remove('active'));
     document.querySelector(`.langue-option[data-lang="${lang}"]`)?.classList.add('active');

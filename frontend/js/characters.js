@@ -7,49 +7,85 @@ const CHARACTERS = {
     mychat: {
       id: 'mychat',
       name: "😜💜 my'chat",
+      names: { fr: "😜💜 my'chat", en: "😜💜 my'chat", de: "😜💜 my'chat", es: "😜💜 my'chat", he: "😜💜 my'chat" },
       emoji: '😜',
-      description: 'Assistant polyvalent et amical',
-      role: 'Assistant IA',
+      descriptions: {
+        fr: 'Assistant polyvalent et amical',
+        en: 'Versatile and friendly assistant',
+        de: 'Vielseitiger und freundlicher Assistent',
+        es: 'Asistente versátil y amistoso',
+        he: 'עוזר רב-תכליתי וידידותי',
+      },
       color: '#00D4FF'
     },
     ami: {
       id: 'ami',
       name: "👋 L'Ami",
+      names: { fr: "👋 L'Ami", en: '👋 The Friend', de: '👋 Der Freund', es: '👋 El Amigo', he: '👋 החבר' },
       emoji: '👋',
-      description: 'Sympa et décontracté',
-      role: 'Ami',
+      descriptions: {
+        fr: 'Sympa et décontracté',
+        en: 'Cool and laid-back',
+        de: 'Cool und entspannt',
+        es: 'Genial y relajado',
+        he: 'מגניב ורגוע',
+      },
       color: '#00AA66'
     },
     prof: {
       id: 'prof',
       name: '📚 Le Prof',
+      names: { fr: '📚 Le Prof', en: '📚 The Teacher', de: '📚 Der Lehrer', es: '📚 El Profesor', he: '📚 המורה' },
       emoji: '📚',
-      description: 'Pédagogue et patient',
-      role: 'Enseignant',
+      descriptions: {
+        fr: 'Pédagogue et patient',
+        en: 'Educational and patient',
+        de: 'Pädagogisch und geduldig',
+        es: 'Educativo y paciente',
+        he: 'פדגוגי וסבלני',
+      },
       color: '#FFD700'
     },
     cuisinier: {
       id: 'cuisinier',
       name: '👨‍🍳 Le Cuisinier',
+      names: { fr: '👨‍🍳 Le Cuisinier', en: '👨‍🍳 The Chef', de: '👨‍🍳 Der Koch', es: '👨‍🍳 El Cocinero', he: '👨‍🍳 הטבח' },
       emoji: '👨‍🍳',
-      description: 'Chef cuisinier passionné',
-      role: 'Chef',
+      descriptions: {
+        fr: 'Chef cuisinier passionné',
+        en: 'Passionate chef',
+        de: 'Leidenschaftlicher Koch',
+        es: 'Chef apasionado',
+        he: 'שף נלהב',
+      },
       color: '#FF8C00'
     },
     coach: {
       id: 'coach',
       name: '💪 Le Coach',
+      names: { fr: '💪 Le Coach', en: '💪 The Coach', de: '💪 Der Coach', es: '💪 El Coach', he: '💪 המאמן' },
       emoji: '💪',
-      description: 'Coach sportif motivant',
-      role: 'Coach',
+      descriptions: {
+        fr: 'Coach sportif motivant',
+        en: 'Motivating sports coach',
+        de: 'Motivierender Sportcoach',
+        es: 'Coach deportivo motivador',
+        he: 'מאמן ספורטיבי מניע',
+      },
       color: '#FF6B6B'
     },
     conteur: {
       id: 'conteur',
       name: '📖 Le Conteur',
+      names: { fr: '📖 Le Conteur', en: '📖 The Storyteller', de: '📖 Der Geschichtenerzähler', es: '📖 El Narrador', he: '📖 המספר' },
       emoji: '📖',
-      description: 'Inventeur d\'histoires et de contes',
-      role: 'Conteur',
+      descriptions: {
+        fr: "Inventeur d'histoires et de contes",
+        en: 'Storyteller and tale inventor',
+        de: 'Märchenerzähler und Geschichtenerfinder',
+        es: 'Narrador e inventor de historias',
+        he: 'ממציא סיפורים ואגדות',
+      },
       color: '#C084FC'
     }
   },
@@ -60,6 +96,16 @@ const CHARACTERS = {
 
   getAll() {
     return Object.values(this.list);
+  },
+
+  getName(id, lang) {
+    const c = this.list[id];
+    return c?.names?.[lang] || c?.name || id;
+  },
+
+  getDescription(id, lang) {
+    const c = this.list[id];
+    return c?.descriptions?.[lang] || '';
   },
 
   getSystemPrompts() {

@@ -103,13 +103,15 @@ const SIDEBAR = {
     const personalityList = document.querySelector('.personality-list');
     if (!personalityList) return;
 
+    const lang = CHAT.currentLanguage || 'fr';
     personalityList.innerHTML = '';
 
     CHARACTERS.getAll().forEach(character => {
       const btn = document.createElement('button');
       btn.className = 'personality-btn';
       btn.dataset.personality = character.id;
-      btn.innerHTML = character.name;
+      btn.textContent = CHARACTERS.getName(character.id, lang);
+      btn.title = CHARACTERS.getDescription(character.id, lang);
 
       if (character.id === this.currentPersonality) {
         btn.classList.add('active');
