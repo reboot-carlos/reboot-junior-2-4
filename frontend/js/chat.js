@@ -15,6 +15,7 @@ const CHAT = {
       welcome: `Hello 👋 Je suis ton chatbot.<br>Écris-moi ce que tu veux !`,
       placeholder: "Écris ton message ici...",
       errorServer: "❌ Le serveur ne répond pas 🔌<br>Vérification:<br>✓ Est-ce que 'python main.py' est lancé?<br>✓ Est-ce que le navigateur est sur http://localhost:8000?<br><br>F12 → Console pour voir les détails",
+      floating: { games: '🎮 Jeux', emoji: 'Emoji', languages: '🌍 Langues' },
       suggestions: [
         { label: '👋 Coucou',   question: 'Coucou' },
         { label: '🎨 Création', question: 'Parle moi de la création' },
@@ -37,6 +38,7 @@ const CHAT = {
       welcome: `שלום 👋 אני הצ'טבוט שלך.<br>כתוב לי מה שאתה רוצה !`,
       placeholder: "כתוב את ההודעה שלך כאן...",
       errorServer: "❌ השרת לא מגיב<br>בדוק: python main.py חייב להיות מריץ",
+      floating: { games: '🎮 משחקים', emoji: "אמוג'י", languages: '🌍 שפות' },
       suggestions: [
         { label: '👋 שלום',    question: 'שלום' },
         { label: '🎨 יצירה',  question: 'ספר לי על יצירה' },
@@ -59,6 +61,7 @@ const CHAT = {
       welcome: `Hello 👋 I'm your chatbot.<br>Tell me what you want !`,
       placeholder: "Write your message here...",
       errorServer: "❌ Server not responding 🔌<br>Check: Is 'python main.py' running?",
+      floating: { games: '🎮 Games', emoji: 'Emoji', languages: '🌍 Languages' },
       suggestions: [
         { label: '👋 Hello',    question: 'Hello' },
         { label: '🎨 Creation', question: 'Tell me about creation' },
@@ -81,6 +84,7 @@ const CHAT = {
       welcome: `Hallo 👋 Ich bin dein Chatbot.<br>Schreib mir, was du möchtest !`,
       placeholder: "Schreib deine Nachricht hier...",
       errorServer: "❌ Server antwortet nicht<br>Prüfen: Läuft 'python main.py'?",
+      floating: { games: '🎮 Spiele', emoji: 'Emoji', languages: '🌍 Sprachen' },
       suggestions: [
         { label: '👋 Hallo',        question: 'Hallo' },
         { label: '🎨 Kreation',     question: 'Erzähl mir von der Kreation' },
@@ -103,6 +107,7 @@ const CHAT = {
       welcome: `¡Hola 👋 Soy tu chatbot!<br>¡Dime qué quieres !`,
       placeholder: "Escribe tu mensaje aquí...",
       errorServer: "❌ Servidor no responde<br>Verifica: ¿Está 'python main.py' en ejecución?",
+      floating: { games: '🎮 Juegos', emoji: 'Emoji', languages: '🌍 Idiomas' },
       suggestions: [
         { label: '👋 Hola',    question: 'Hola' },
         { label: '🎨 Creación', question: 'Háblame de la creación' },
@@ -184,9 +189,10 @@ const CHAT = {
       }
     });
 
+    const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
+
     const s = t.sidebar;
     if (s) {
-      const set = (sel, val) => { const el = document.querySelector(sel); if (el) el.textContent = val; };
       set('.btn-new-chat',               s.newChat);
       set('.personalities-section h4',   s.personalities);
       set('.history-section h4',         s.history);
@@ -195,6 +201,19 @@ const CHAT = {
       set('#btn-toggle-colors',          s.colors);
       set('.btn-toggle-sidebar',         s.hide);
       set('#btn-add-content-suggestion', s.add);
+    }
+
+    const f = t.floating;
+    if (f) {
+      set('.jeux-btn',   f.games);
+      set('.langue-btn', f.languages);
+      // Bouton emoji : conserver l'emoji actuel devant le mot traduit
+      const emojiBtn = document.querySelector('.emoji-btn');
+      if (emojiBtn) {
+        const parts = emojiBtn.textContent.trim().split(' ');
+        const currentEmoji = parts.length > 1 ? parts[0] : '😊';
+        emojiBtn.textContent = currentEmoji + ' ' + f.emoji;
+      }
     }
 
     document.querySelectorAll('.langue-option').forEach(opt => opt.classList.remove('active'));
@@ -365,10 +384,13 @@ const CHAT = {
    */
   setEmoji(emoji) {
     const h1 = document.querySelector('header h1');
-    const emojiBtn = document.querySelector('.emoji-btn');
+    if (h1) h1.textContent = emoji + " my'chat";
 
-    if (h1) h1.textContent = emoji + ' my\'chat';
-    if (emojiBtn) emojiBtn.textContent = emoji + ' Emoji';
+    const emojiBtn = document.querySelector('.emoji-btn');
+    if (emojiBtn) {
+      const word = this.translations[this.currentLanguage]?.floating?.emoji || 'Emoji';
+      emojiBtn.textContent = emoji + ' ' + word;
+    }
 
     STORAGE.saveEmoji(emoji);
   },
