@@ -1,0 +1,42 @@
+# Python environment — rebuilt by pip inside the image
+venv/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+
+# Secrets — never bake into an image
+.env
+.env.local
+.env.*.local
+
+# Version control
+.git/
+.gitignore
+
+# Local tooling — not needed at runtime
+docker-compose.yml
+nginx.conf
+test-docker.sh
+start.sh
+.dockerignore
+
+# Editor artefacts
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Unused root-level asset (served from frontend/assets/)
+background.webp
+
+# Docs
+docs/
+
+# Logs
+*.log
+logs/
