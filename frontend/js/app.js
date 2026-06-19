@@ -30,7 +30,6 @@ class MyChat {
     CHAT.init();
     this.setupMenus();
     this.setupLanguages();
-    this.setupColors();
     this.setupEmojis();
     this.setupAddContent();
     this.setupGames();
@@ -77,18 +76,7 @@ class MyChat {
     if (active) active.classList.add('active');
   }
 
-  // ── Couleurs ─────────────────────────────────────────────────
-
-  setupColors() {
-    document.querySelectorAll('.couleur-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const color = btn.style.background || btn.style.backgroundColor;
-        if (color) SIDEBAR.setColor(color);
-      });
-    });
-  }
-
-  // ── Emojis ──────────────────────────────────────────────────
+// ── Emojis ──────────────────────────────────────────────────
 
   setupEmojis() {
     document.querySelectorAll('.emoji-option').forEach(option => {

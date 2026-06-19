@@ -201,35 +201,48 @@ const SIDEBAR = {
    * @param {string} color - Code couleur hex
    */
   setColor(color) {
+    // Normalise hex (#RRGGBB) ou rgb(r,g,b) → composantes r, g, b
+    let r, g, b;
+    if (color.startsWith('#') && color.length === 7) {
+      r = parseInt(color.slice(1, 3), 16);
+      g = parseInt(color.slice(3, 5), 16);
+      b = parseInt(color.slice(5, 7), 16);
+    } else {
+      const m = color.match(/\d+/g);
+      if (!m || m.length < 3) return;
+      [r, g, b] = m.map(Number);
+      color = '#' + [r, g, b].map(v => v.toString(16).padStart(2, '0')).join('');
+    }
+
+    const dark = `rgba(${Math.max(0,r-50)},${Math.max(0,g-50)},${Math.max(0,b-50)},0.9)`;
+
+    // Couleur primaire CSS
     document.documentElement.style.setProperty('--primary', color);
 
-    const darkColor = this.darkenColor(color, 0.4);
-
+    // Header + bouton envoyer
+    const grad = `linear-gradient(135deg, ${color} 0%, ${dark} 100%)`;
     const header = document.querySelector('header');
-    if (header) {
-      header.style.background = `linear-gradient(135deg, ${color} 0%, ${darkColor} 100%)`;
-    }
-
+    if (header) header.style.background = grad;
     const sendBtn = document.getElementById('bouton-envoyer');
-    if (sendBtn) {
-      sendBtn.style.background = `linear-gradient(135deg, ${color} 0%, ${darkColor} 100%)`;
-    }
+    if (sendBtn) sendBtn.style.background = grad;
 
-    // Teinte le fond d'écran et le champ de texte avec la couleur choisie
-    const r = parseInt(color.slice(1, 3), 16);
-    const g = parseInt(color.slice(3, 5), 16);
-    const b = parseInt(color.slice(5, 7), 16);
+    // Fond d'écran (overlay)
     document.documentElement.style.setProperty(
       '--bg-overlay',
       `linear-gradient(135deg, rgba(${r},${g},${b},0.38) 0%, rgba(12,12,20,0.78) 100%)`
     );
+
+    // Champ de texte
     document.documentElement.style.setProperty(
       '--input-bg',
       `rgba(${r},${g},${b},0.18)`
     );
+
+    // Zone de réponse du chatbot
     const zoneChat = document.getElementById('zone-chat');
     if (zoneChat) {
-      zoneChat.style.background = `linear-gradient(135deg, rgba(${r},${g},${b},0.55) 0%, rgba(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)},0.75) 100%)`;
+      const chatGrad = `linear-gradient(135deg, rgba(${r},${g},${b},0.60) 0%, rgba(${Math.max(0,r-40)},${Math.max(0,g-40)},${Math.max(0,b-40)},0.85) 100%)`;
+      zoneChat.style.setProperty('background', chatGrad, 'important');
     }
 
     STORAGE.saveColor(color);
