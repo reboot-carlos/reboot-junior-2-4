@@ -158,8 +158,9 @@ const CHAT = {
     const message = input.value.trim();
     if (!message) return;
 
+    input.value = '';   // vider immédiatement, avant l'appel API
+    input.focus();
     await this.askQuestion(message);
-    input.value = '';
   },
 
   /**

@@ -14,6 +14,17 @@ const SIDEBAR = {
     this.restoreState();
     this.renderPersonalities();
     this.renderHistory();
+
+    // Sur mobile, masquer la sidebar par défaut
+    if (window.innerWidth <= 900) {
+      const sidebar = document.getElementById('sidebar');
+      const main    = document.querySelector('.main-container');
+      const openBtn = document.getElementById('btn-open-sidebar');
+      sidebar?.classList.add('hidden');
+      main?.classList.add('sidebar-hidden');
+      openBtn?.classList.add('active');
+      this.isOpen = false;
+    }
   },
 
   /**
