@@ -50,6 +50,13 @@ else
     source venv/bin/activate
 fi
 
+# Libérer le port 8000 si déjà occupé
+if lsof -ti:8000 &>/dev/null; then
+    warn "Port 8000 occupé — arrêt du processus existant..."
+    kill $(lsof -ti:8000) 2>/dev/null || true
+    sleep 1
+fi
+
 ok "Démarrage — http://localhost:8000/chatbot"
 echo ""
 uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
