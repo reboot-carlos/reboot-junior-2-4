@@ -1,0 +1,68 @@
+═══════════════════════════════════════════════════════════
+🚀 GUIDE: LANCER TON CHATBOT
+═══════════════════════════════════════════════════════════
+
+⚡ ÉTAPE 1: Ouvre un Terminal/Console
+
+📁 Navigue vers le dossier du chatbot:
+   cd /home/reboot/Documents/RebootJR
+
+═══════════════════════════════════════════════════════════
+
+⚡ ÉTAPE 2: Lance le serveur
+
+Option A - Script automatique (recommandé):
+   chmod +x lancer.sh
+   ./lancer.sh
+
+Option B - Directement avec Python:
+   python3 main.py
+
+═══════════════════════════════════════════════════════════
+
+⚡ ÉTAPE 3: Attends le message
+
+Tu dois voir dans le terminal:
+   ✅ Claude API connectée avec succès!
+   INFO:     Application startup complete
+
+🎉 Le serveur est prêt!
+
+═══════════════════════════════════════════════════════════
+
+⚡ ÉTAPE 4: Ouvre ton chatbot
+
+Dans ton navigateur web, va à:
+   http://localhost:8000
+
+🌟 C'est tout! Ton chatbot fonctionne!
+
+═══════════════════════════════════════════════════════════
+
+❓ PROBLÈMES?
+
+❌ "python3: command not found"
+   → Python n'est pas installé
+   → Ubuntu: sudo apt install python3
+   → Windows: Télécharge python.org
+
+❌ "Module not found: fastapi"
+   → Installe les dépendances:
+   pip install -r requirements.txt
+
+❌ "Address already in use"
+   → Le port 8000 est utilisé
+   → Ferme les autres instances de main.py
+
+❌ "ANTHROPIC_API_KEY not found"
+   → La clé API n'est pas dans .env
+   → Crée un fichier .env avec ta clé:
+   ANTHROPIC_API_KEY=sk-ant-xxxxx
+
+═══════════════════════════════════════════════════════════
+
+🛑 POUR ARRÊTER LE SERVEUR
+
+Dans le terminal: Appuie sur Ctrl+C
+
+═══════════════════════════════════════════════════════════

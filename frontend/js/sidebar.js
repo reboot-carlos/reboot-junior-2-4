@@ -1,0 +1,225 @@
+/* ============================================================
+   SIDEBAR - Gestion de la barre latérale et historique
+   ============================================================ */
+
+const SIDEBAR = {
+  isOpen: true,
+  currentPersonality: 'mychat',
+
+  /**
+   * Initialise la barre latérale
+   */
+  init() {
+    this.setupEventListeners();
+    this.restoreState();
+    this.renderPersonalities();
+    this.renderHistory();
+  },
+
+  /**
+   * Configure les écouteurs d'événements
+   */
+  setupEventListeners() {
+    const toggleBtn = document.querySelector('.btn-toggle-sidebar');
+    const openBtn = document.getElementById('btn-open-sidebar');
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => this.toggle());
+    }
+
+    if (openBtn) {
+      openBtn.addEventListener('click', () => this.toggle());
+    }
+
+    // Event delegation pour les boutons de personnalité
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('personality-btn')) {
+        const personality = e.target.dataset.personality;
+        if (personality) {
+          CHAT.setPersonality(personality);
+          this.setActive(personality);
+          CHAT.reset();
+        }
+      }
+    });
+
+    // Bouton nouveau chat
+    const newChatBtn = document.querySelector('.btn-new-chat');
+    if (newChatBtn) {
+      newChatBtn.addEventListener('click', () => CHAT.reset());
+    }
+  },
+
+  /**
+   * Bascule l'état de la barre latérale
+   */
+  toggle() {
+    const sidebar = document.getElementById('sidebar');
+    const mainContainer = document.querySelector('.main-container');
+    const openBtn = document.getElementById('btn-open-sidebar');
+
+    if (sidebar) {
+      sidebar.classList.toggle('hidden');
+      this.isOpen = !this.isOpen;
+    }
+
+    if (mainContainer) {
+      mainContainer.classList.toggle('sidebar-hidden');
+    }
+
+    if (openBtn) {
+      openBtn.classList.toggle('active');
+    }
+
+    localStorage.setItem('mychat_sidebar_open', this.isOpen);
+  },
+
+  /**
+   * Restaure l'état de la barre latérale
+   */
+  restoreState() {
+    const isOpen = localStorage.getItem('mychat_sidebar_open');
+    if (isOpen === 'false') {
+      this.isOpen = false;
+      this.toggle();
+    }
+  },
+
+  /**
+   * Affiche les personnalités
+   */
+  renderPersonalities() {
+    const personalityList = document.querySelector('.personality-list');
+    if (!personalityList) return;
+
+    personalityList.innerHTML = '';
+
+    CHARACTERS.getAll().forEach(character => {
+      const btn = document.createElement('button');
+      btn.className = 'personality-btn';
+      btn.dataset.personality = character.id;
+      btn.innerHTML = character.name;
+
+      if (character.id === this.currentPersonality) {
+        btn.classList.add('active');
+      }
+
+      personalityList.appendChild(btn);
+    });
+  },
+
+  /**
+   * Marque une personnalité comme active
+   * @param {string} personality - ID de la personnalité
+   */
+  setActive(personality) {
+    document.querySelectorAll('.personality-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+    const activeBtn = document.querySelector(`.personality-btn[data-personality="${personality}"]`);
+    if (activeBtn) {
+      activeBtn.classList.add('active');
+    }
+
+    this.currentPersonality = personality;
+    STORAGE.savePersonality(personality);
+  },
+
+  /**
+   * Affiche l'historique des conversations
+   */
+  renderHistory() {
+    const historyList = document.querySelector('.history-list');
+    if (!historyList) return;
+
+    const conversations = STORAGE.getConversations();
+
+    if (conversations.length === 0) {
+      historyList.innerHTML = '<p style="color: #888; font-size: 0.85rem; text-align: center; padding: 1rem;">Aucune conversation yet</p>';
+      return;
+    }
+
+    historyList.innerHTML = '';
+
+    conversations.slice(0, 20).forEach(conversation => {
+      const item = document.createElement('button');
+      item.className = 'history-item';
+      item.innerHTML = `
+        <span>${conversation.title.substring(0, 20)}...</span>
+        <button class="delete-btn" data-id="${conversation.id}">✕</button>
+      `;
+
+      item.addEventListener('click', () => {
+        CHAT.loadConversation(conversation);
+      });
+
+      item.querySelector('.delete-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
+        STORAGE.deleteConversation(conversation.id);
+        this.renderHistory();
+      });
+
+      historyList.appendChild(item);
+    });
+  },
+
+  /**
+   * Ajoute une conversation à l'historique
+   * @param {object} conversation
+   */
+  addToHistory(conversation) {
+    STORAGE.saveConversation(conversation);
+    this.renderHistory();
+  },
+
+  /**
+   * Change la couleur primaire
+   * @param {string} color - Code couleur hex
+   */
+  setColor(color) {
+    document.documentElement.style.setProperty('--primary', color);
+
+    const darkColor = this.darkenColor(color, 0.4);
+
+    const header = document.querySelector('header');
+    if (header) {
+      header.style.background = `linear-gradient(135deg, ${color} 0%, ${darkColor} 100%)`;
+    }
+
+    const sendBtn = document.getElementById('bouton-envoyer');
+    if (sendBtn) {
+      sendBtn.style.background = `linear-gradient(135deg, ${color} 0%, ${darkColor} 100%)`;
+    }
+
+    STORAGE.saveColor(color);
+  },
+
+  /**
+   * Assombrit une couleur
+   * @param {string} color - Code couleur hex
+   * @param {number} percent - Pourcentage d'assombrissement
+   * @returns {string} Couleur plus foncée
+   */
+  darkenColor(color, percent) {
+    const num = parseInt(color.replace('#', ''), 16);
+    const amt = Math.round(2.55 * percent);
+    const R = Math.max(0, (num >> 16) - amt);
+    const G = Math.max(0, (num >> 8 & 0x00FF) - amt);
+    const B = Math.max(0, (num & 0x0000FF) - amt);
+
+    return '#' + (0x1000000 + (R < 0 ? 0 : R) * 0x10000 +
+      (G < 0 ? 0 : G) * 0x100 + (B < 0 ? 0 : B))
+      .toString(16).slice(1);
+  },
+
+  /**
+   * Toggle le menu couleur de la barre
+   */
+  toggleColorMenu() {
+    const menu = document.getElementById('couleur-menu-sidebar');
+    if (menu) {
+      menu.style.display = menu.style.display === 'none' ? 'grid' : 'none';
+    }
+  }
+};

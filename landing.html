@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>my'chat - Ton IA Préférée</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #00D4FF;
+      --accent: #FFD700;
+      --dark: #15151e;
+      --gray: #38383f;
+      --white: #ffffff;
+      --light-purple: #e6d4f0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, var(--dark) 0%, #1a1a25 100%);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(21, 21, 30, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1.5rem 2rem;
+      z-index: 1000;
+      border-bottom: 2px solid var(--primary);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--dark);
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    /* Hero Section */
+    .hero {
+      margin-top: 80px;
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      color: #bbb;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+
+    .hero-emoji {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-size: 1rem;
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary);
+      color: var(--dark);
+    }
+
+    /* Features Section */
+    .features {
+      padding: 5rem 2rem;
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(192, 132, 252, 0.1) 100%);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .features h2 {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--primary);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .feature-card {
+      background: rgba(56, 56, 63, 0.5);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 2px solid var(--primary);
+      transition: all 0.3s;
+      text-align: center;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .feature-card p {
+      color: #ccc;
+      font-size: 0.95rem;
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 5rem 2rem;
+      text-align: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+    }
+
+    .cta p {
+      font-size: 1.2rem;
+      color: #bbb;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer {
+      padding: 2rem;
+      text-align: center;
+      border-top: 2px solid var(--gray);
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .features h2 {
+        font-size: 2rem;
+      }
+
+      .cta h2 {
+        font-size: 2rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .btn-group {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Accessibilité */
+    button:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    a:focus {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
+    }
+
+    /* Smooth transitions */
+    a, button {
+      transition: all 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span>😜💜</span>
+        <span>my'chat</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Caractéristiques</a></li>
+        <li><a href="#cta">Commencer</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-emoji">😜💜</div>
+    <h1>Bienvenue sur my'chat</h1>
+    <p>Ton assistant IA préféré, créé par une collégienne passionnée de codage. Multilingue, amusant et toujours prêt à t'aider!</p>
+    <div class="btn-group">
+      <a href="./chatbot" class="btn-primary">Ouvrir le Chatbot</a>
+      <a href="#features" class="btn-secondary">Découvrir Plus</a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="features">
+    <h2>Pourquoi my'chat?</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>Alimenté par Claude</h3>
+        <p>Réponses intelligentes et contextuelles grâce à l'API Claude d'Anthropic</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>5 Langues</h3>
+        <p>Français, Anglais, Allemand, Espagnol et Hébreu pour une expérience globale</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎮</div>
+        <h3>Jeux Intégrés</h3>
+        <p>Dinosaure, Serpent et Tetris - Amuse-toi en attendant une réponse!</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>Personnalisable</h3>
+        <p>Change les couleurs à ta guise avec la palette intégrée</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Rapide & Fiable</h3>
+        <p>Interface fluide avec fallback intelligent sur une base locale</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">♿</div>
+        <h3>Accessible</h3>
+        <p>Conçu pour être utilisable par tous, quel que soit votre appareil</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section id="cta" class="cta">
+    <h2>Prêt à Commencer?</h2>
+    <p>Plonge dans l'expérience de my'chat dès maintenant. Pose tes questions, joue aux jeux et personnalise à ta guise!</p>
+    <a href="./chatbot" class="btn-primary">Accéder au Chatbot</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Créé avec ❤️ par une creatrice passionnée | © 2026 my'chat</p>
+  </footer>
+</body>
+</html>

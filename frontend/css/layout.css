@@ -1,0 +1,327 @@
+/* ============================================================
+   LAYOUT - Structure et Disposition
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  background: var(--dark);
+  background-image: url('/static/assets/background.webp');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  color: var(--white);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(21, 21, 30, 0.7);
+  z-index: -1;
+}
+
+/* ============================================================
+   BARRE LATÉRALE
+   ============================================================ */
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: var(--sidebar-width);
+  height: 100vh;
+  background: var(--gray);
+  border-right: 3px solid var(--accent);
+  padding: var(--spacing-lg);
+  z-index: 150;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  overflow-y: auto;
+  transition: transform var(--transition-normal);
+}
+
+.sidebar.hidden {
+  transform: translateX(calc(-1 * var(--sidebar-width)));
+}
+
+/* Scrollbar personnalisée */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Bouton réouverture barre */
+.btn-open-sidebar {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary);
+  border: none;
+  color: var(--dark);
+  padding: var(--spacing-md) var(--spacing-xs);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+  z-index: 140;
+  display: none;
+  transition: all var(--transition-normal);
+}
+
+.btn-open-sidebar:hover {
+  padding: var(--spacing-md) 0.75rem;
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+}
+
+.btn-open-sidebar.active {
+  display: block;
+}
+
+/* ============================================================
+   CONTENEUR PRINCIPAL
+   ============================================================ */
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  padding: var(--spacing-lg);
+  margin-left: var(--sidebar-width);
+  transition: margin-left var(--transition-normal);
+}
+
+.main-container.sidebar-hidden {
+  margin-left: 0;
+}
+
+/* Header */
+header {
+  width: 100%;
+  max-width: var(--chat-max-width);
+  background: var(--gradient-info);
+  padding: 1.2rem 2rem;
+  border-radius: var(--border-radius-lg);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  animation: sparkle 2s ease-in-out infinite;
+  border: 3px solid var(--accent);
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.05em;
+}
+
+header p {
+  font-size: var(--font-size-xs);
+  opacity: 0.85;
+  margin-top: 0.2rem;
+}
+
+/* ============================================================
+   CONTRÔLES FLOTTANTS
+   ============================================================ */
+
+.floating-btn {
+  position: fixed;
+  background: var(--primary);
+  border: 2px solid var(--accent);
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) 1.25rem;
+  border-radius: 50px;
+  transition: all var(--transition-normal);
+  z-index: 100;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semi-bold);
+}
+
+.floating-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+}
+
+.langue-btn {
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+}
+
+.jeux-btn {
+  top: var(--spacing-lg);
+  left: var(--spacing-lg);
+}
+
+.emoji-btn {
+  top: var(--spacing-lg);
+  left: 9.5rem;
+}
+
+.param-btn {
+  bottom: var(--spacing-lg);
+  left: var(--spacing-lg);
+  width: 60px;
+  height: 60px;
+  border-radius: var(--border-radius-full);
+  font-size: 1.5rem;
+}
+
+.param-btn:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.8);
+}
+
+/* Menus déroulants */
+.menu {
+  position: fixed;
+  background: var(--dark);
+  border: 2px solid var(--accent);
+  border-radius: var(--border-radius-md);
+  z-index: 99;
+  display: none;
+  flex-direction: column;
+  box-shadow: var(--shadow-md);
+  min-width: 150px;
+}
+
+.menu.active {
+  display: flex;
+}
+
+.menu-option {
+  padding: var(--spacing-sm) 1.5rem;
+  cursor: pointer;
+  color: var(--white);
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  transition: all var(--transition-fast);
+}
+
+.menu-option:hover {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.menu-option.active {
+  background: var(--primary);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 240px;
+  }
+
+  .main-container {
+    margin-left: 240px;
+    padding: var(--spacing-md);
+  }
+
+  .btn-open-sidebar {
+    padding: var(--spacing-md) var(--spacing-xs);
+  }
+
+  .floating-btn {
+    padding: var(--spacing-sm) 1rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .langue-btn,
+  .jeux-btn,
+  .emoji-btn {
+    top: var(--spacing-md);
+  }
+
+  .langue-btn {
+    right: var(--spacing-md);
+  }
+
+  .jeux-btn,
+  .emoji-btn {
+    left: var(--spacing-md);
+  }
+
+  .param-btn {
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    display: none;
+    width: 100%;
+    height: 100%;
+    z-index: 200;
+  }
+
+  .sidebar.active {
+    display: flex;
+  }
+
+  .main-container {
+    margin-left: 0;
+    padding: var(--spacing-md);
+  }
+
+  .btn-open-sidebar {
+    display: block;
+    left: 0;
+    z-index: 180;
+  }
+
+  header {
+    padding: 1rem 1.5rem;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+}

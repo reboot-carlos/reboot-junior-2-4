@@ -1,0 +1,584 @@
+/* ============================================================
+   RESPONSIVE DESIGN - Mobile, Tablet, Desktop
+   ============================================================ */
+
+/* ============================================================
+   TABLET - 768px et moins
+   ============================================================ */
+
+@media (max-width: 768px) {
+  :root {
+    --sidebar-width: 240px;
+    --spacing-lg: 1.2rem;
+    --spacing-md: 0.8rem;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  .sidebar {
+    width: 240px;
+    padding: var(--spacing-md);
+  }
+
+  .main-container {
+    margin-left: 240px;
+    padding: var(--spacing-md);
+  }
+
+  header {
+    padding: 1rem 1.5rem;
+  }
+
+  header h1 {
+    font-size: 1.2rem;
+  }
+
+  header p {
+    font-size: var(--font-size-xs);
+  }
+
+  #zone-chat {
+    min-height: 300px;
+    max-height: 450px;
+    padding: var(--spacing-md);
+  }
+
+  .message {
+    max-width: 90%;
+  }
+
+  #formulaire {
+    gap: var(--spacing-xs);
+  }
+
+  #champ-texte {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    font-size: var(--font-size-base);
+  }
+
+  #bouton-envoyer {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .floating-btn {
+    padding: var(--spacing-sm) 1rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .langue-btn,
+  .jeux-btn,
+  .emoji-btn {
+    top: var(--spacing-md);
+    right: auto;
+    left: auto;
+  }
+
+  .langue-btn {
+    right: var(--spacing-md);
+  }
+
+  .jeux-btn {
+    left: var(--spacing-md);
+  }
+
+  .emoji-btn {
+    left: 7rem;
+  }
+
+  .param-btn {
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+  }
+
+  .btn-suggestion {
+    padding: 0.3rem 0.7rem;
+    font-size: var(--font-size-xs);
+  }
+
+  #suggestions {
+    gap: var(--spacing-xs);
+  }
+
+  .image-upload-container {
+    padding: var(--spacing-lg);
+  }
+
+  .jeu-container {
+    padding: var(--spacing-lg);
+  }
+
+  #game-canvas {
+    max-width: 100%;
+  }
+
+  .couleur-option {
+    width: 40px;
+    height: 40px;
+  }
+
+  .emoji-option {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  .history-item {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-xs);
+  }
+
+  .personality-btn,
+  .param-option-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ============================================================
+   MOBILE - 480px et moins
+   ============================================================ */
+
+@media (max-width: 480px) {
+  :root {
+    --sidebar-width: 100%;
+    --chat-max-width: 100%;
+    --spacing-xl: 1.5rem;
+    --spacing-lg: 1rem;
+    --spacing-md: 0.7rem;
+    --spacing-sm: 0.5rem;
+  }
+
+  body {
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: -100%;
+    top: 0;
+    z-index: 200;
+    border-right: none;
+    border-bottom: 3px solid var(--accent);
+    flex-direction: column;
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+    transition: left var(--transition-normal);
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .main-container {
+    width: 100%;
+    margin-left: 0;
+    padding: var(--spacing-md);
+    min-height: 100vh;
+  }
+
+  .main-container.sidebar-hidden {
+    margin-left: 0;
+  }
+
+  .btn-open-sidebar {
+    display: block;
+    z-index: 180;
+    left: 0;
+  }
+
+  .btn-open-sidebar.active {
+    display: block;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: var(--spacing-lg);
+    width: 100%;
+    border-radius: var(--border-radius-md);
+  }
+
+  header h1 {
+    font-size: 1.1rem;
+  }
+
+  header p {
+    font-size: var(--font-size-xs);
+  }
+
+  #zone-chat {
+    width: 100%;
+    max-width: 100%;
+    min-height: 250px;
+    max-height: 400px;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+  }
+
+  .message {
+    max-width: 95%;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  #formulaire {
+    width: 100%;
+    max-width: 100%;
+    gap: var(--spacing-xs);
+  }
+
+  #champ-texte {
+    padding: var(--spacing-sm) var(--spacing-sm);
+    font-size: 1rem;
+    border-width: 2px;
+  }
+
+  #bouton-envoyer {
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  #suggestions {
+    width: 100%;
+    max-width: 100%;
+    gap: var(--spacing-xs);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .btn-suggestion {
+    padding: 0.3rem 0.6rem;
+    font-size: var(--font-size-xs);
+    flex: 1;
+    min-width: 0;
+  }
+
+  .floating-btn {
+    padding: var(--spacing-xs) 0.8rem;
+    font-size: var(--font-size-xs);
+    border-width: 1px;
+  }
+
+  .langue-btn {
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+  }
+
+  .jeux-btn {
+    top: var(--spacing-md);
+    left: var(--spacing-md);
+  }
+
+  .emoji-btn {
+    top: 3.5rem;
+    left: var(--spacing-md);
+  }
+
+  .param-btn {
+    bottom: var(--spacing-md);
+    left: var(--spacing-md);
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+  }
+
+  .param-menu {
+    bottom: 4rem;
+    left: var(--spacing-md);
+    min-width: 180px;
+  }
+
+  .param-item {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-sm);
+  }
+
+  .image-upload-zone {
+    padding: var(--spacing-md);
+  }
+
+  .image-upload-container {
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+  }
+
+  .image-upload-container h3 {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-md);
+  }
+
+  .upload-label {
+    padding: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+  }
+
+  .image-preview {
+    max-height: 250px;
+    margin: var(--spacing-sm) 0;
+  }
+
+  .btn-confirm,
+  .btn-cancel {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+  }
+
+  #jeux-zone {
+    padding: var(--spacing-md);
+  }
+
+  .jeu-container {
+    padding: var(--spacing-lg);
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .jeu-header {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .jeu-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .jeu-fermer {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  #game-canvas {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .score {
+    font-size: 1rem;
+    margin: var(--spacing-sm) 0;
+  }
+
+  .instructions {
+    font-size: var(--font-size-xs);
+    margin: var(--spacing-sm) 0;
+  }
+
+  /* Sidebar Mobile */
+  .personalities-section h4,
+  .history-section h4,
+  .parameters-section h4 {
+    font-size: var(--font-size-xs);
+    margin-top: var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .btn-new-chat {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+    width: 100%;
+  }
+
+  .personality-btn,
+  .param-option-btn {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  .history-item {
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-xs) var(--spacing-xs);
+  }
+
+  .history-item .delete-btn {
+    font-size: 0.7rem;
+  }
+
+  .couleur-menu-sidebar {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs);
+  }
+
+  .couleur-btn {
+    border-width: 2px;
+  }
+
+  .btn-toggle-sidebar {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .couleur-option {
+    width: 35px;
+    height: 35px;
+  }
+
+  .emoji-option {
+    width: 32px;
+    height: 32px;
+    font-size: 0.95rem;
+    padding: var(--spacing-xs) var(--spacing-xs);
+  }
+
+  .emoji-menu {
+    width: 240px;
+    padding: var(--spacing-xs);
+    gap: var(--spacing-xs);
+  }
+
+  .langue-menu,
+  .jeux-menu {
+    min-width: 140px;
+    font-size: var(--font-size-sm);
+  }
+
+  .langue-option,
+  .jeu-option {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+  }
+
+  .image-menu {
+    width: 90vw;
+    max-width: 280px;
+    top: 5rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .image-option {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+
+  .couleur-menu {
+    width: 200px;
+    max-width: 200px;
+  }
+
+  .btn-add-content {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+
+  .add-content-menu {
+    min-width: 130px;
+  }
+
+  .add-option {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+  }
+}
+
+/* ============================================================
+   PETIT MOBILE - 320px et moins
+   ============================================================ */
+
+@media (max-width: 320px) {
+  :root {
+    --spacing-lg: 0.8rem;
+    --spacing-md: 0.6rem;
+    --spacing-sm: 0.4rem;
+  }
+
+  header {
+    padding: 0.8rem;
+  }
+
+  header h1 {
+    font-size: 1rem;
+  }
+
+  #zone-chat {
+    min-height: 200px;
+    max-height: 350px;
+    padding: var(--spacing-sm);
+  }
+
+  #formulaire {
+    gap: var(--spacing-xs);
+  }
+
+  #champ-texte {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.95rem;
+  }
+
+  #bouton-envoyer {
+    width: 40px;
+    height: 40px;
+    font-size: 0.9rem;
+  }
+
+  .floating-btn {
+    padding: var(--spacing-xs) 0.6rem;
+    font-size: var(--font-size-xs);
+  }
+
+  .langue-btn,
+  .jeux-btn,
+  .emoji-btn,
+  .param-btn {
+    right: var(--spacing-xs);
+    left: var(--spacing-xs);
+    top: var(--spacing-xs);
+  }
+
+  .jeux-btn {
+    left: var(--spacing-xs);
+  }
+
+  .emoji-btn {
+    display: none;
+  }
+
+  .param-btn {
+    bottom: var(--spacing-xs);
+    left: var(--spacing-xs);
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ============================================================
+   GRANDE RÉSOLUTION - 1920px et plus
+   ============================================================ */
+
+@media (min-width: 1920px) {
+  :root {
+    --chat-max-width: 900px;
+  }
+
+  .main-container {
+    padding: var(--spacing-xl);
+  }
+
+  header {
+    padding: 1.5rem 2.5rem;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  #zone-chat {
+    max-height: 600px;
+    padding: var(--spacing-xl);
+  }
+
+  .sidebar {
+    padding: var(--spacing-xl);
+  }
+}
