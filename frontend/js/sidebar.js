@@ -215,6 +215,15 @@ const SIDEBAR = {
       sendBtn.style.background = `linear-gradient(135deg, ${color} 0%, ${darkColor} 100%)`;
     }
 
+    // Teinte le fond d'écran avec la couleur choisie
+    const r = parseInt(color.slice(1, 3), 16);
+    const g = parseInt(color.slice(3, 5), 16);
+    const b = parseInt(color.slice(5, 7), 16);
+    document.documentElement.style.setProperty(
+      '--bg-overlay',
+      `linear-gradient(135deg, rgba(${r},${g},${b},0.38) 0%, rgba(12,12,20,0.78) 100%)`
+    );
+
     STORAGE.saveColor(color);
   },
 
