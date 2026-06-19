@@ -133,13 +133,14 @@ const CHAT = {
   },
 
   /**
-   * Réinitialise le chat
+   * Réinitialise le chat (sauvegarde la conversation courante d'abord)
    */
   reset() {
+    // Sauvegarder la conversation courante si elle contient des messages utilisateur
+    this.saveConversation();
+
     const chatZone = document.getElementById('zone-chat');
-    if (chatZone) {
-      chatZone.innerHTML = '';
-    }
+    if (chatZone) chatZone.innerHTML = '';
 
     this.messageCount = 0;
     this.currentConversationId = this.generateId();
@@ -181,6 +182,7 @@ const CHAT = {
       const response = await API.chat(question, this.currentLanguage, this.currentPersonality);
       this.removeMessage(loadingId);
       this.addMessage('bot', response);
+      this.saveConversation(); // sauvegarder après chaque échange réussi
     } catch (error) {
       this.removeMessage(loadingId);
       const errorMsg = this.translations[this.currentLanguage]?.errorServer || this.translations.fr.errorServer;
@@ -317,23 +319,31 @@ const CHAT = {
   },
 
   /**
-   * Sauvegarde la conversation courante
+   * Sauvegarde la conversation courante dans l'historique
    */
   saveConversation() {
     const chatZone = document.getElementById('zone-chat');
     if (!chatZone) return;
 
+    // Ne sauvegarder que si l'utilisateur a envoyé au moins un message
+    const userMessages = chatZone.querySelectorAll('.message.user');
+    if (userMessages.length === 0) return;
+
     const messages = [];
-    chatZone.querySelectorAll('.message').forEach(msg => {
+    chatZone.querySelectorAll('.message:not(.loading)').forEach(msg => {
       messages.push({
         type: msg.classList[1],
         content: msg.innerHTML
       });
     });
 
+    // Titre = premier message utilisateur (plus parlant que le message de bienvenue)
+    const firstUserMsg = chatZone.querySelector('.message.user');
+    const title = (firstUserMsg?.textContent || 'Conversation').substring(0, 40);
+
     const conversation = {
       id: this.currentConversationId,
-      title: messages[0]?.content.substring(0, 50) || 'Conversation',
+      title,
       date: new Date().toISOString(),
       messages
     };

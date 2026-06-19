@@ -154,18 +154,27 @@ const SIDEBAR = {
     historyList.innerHTML = '';
 
     conversations.slice(0, 20).forEach(conversation => {
-      const item = document.createElement('button');
+      // Utiliser un <div> — un <button> dans un <button> est du HTML invalide
+      const item = document.createElement('div');
       item.className = 'history-item';
-      item.innerHTML = `
-        <span>${conversation.title.substring(0, 20)}...</span>
-        <button class="delete-btn" data-id="${conversation.id}">✕</button>
-      `;
 
-      item.addEventListener('click', () => {
-        CHAT.loadConversation(conversation);
-      });
+      const label = document.createElement('span');
+      label.textContent = conversation.title.substring(0, 28);
+      label.className = 'history-label';
 
-      item.querySelector('.delete-btn').addEventListener('click', (e) => {
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-btn';
+      delBtn.textContent = '✕';
+      delBtn.title = 'Supprimer';
+
+      item.appendChild(label);
+      item.appendChild(delBtn);
+
+      // Clic sur l'item (hors supprimer) → charge la conversation
+      item.addEventListener('click', () => CHAT.loadConversation(conversation));
+
+      // Clic sur supprimer — stopPropagation pour ne pas déclencher le clic de l'item
+      delBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         STORAGE.deleteConversation(conversation.id);
         this.renderHistory();
