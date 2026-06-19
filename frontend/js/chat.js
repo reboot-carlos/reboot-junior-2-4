@@ -196,8 +196,8 @@ const CHAT = {
 
   /**
    * Ajoute un message au chat
-   * @param {string} type - 'bot', 'user', 'loading'
-   * @param {string} content - Contenu du message (texte ou HTML sécurisé)
+   * @param {string} type - 'bot' | 'user' | 'loading'
+   * @param {string} content - Texte brut ou HTML (images utilisateur)
    * @returns {string} ID du message
    */
   addMessage(type, content) {
@@ -209,11 +209,23 @@ const CHAT = {
     msgDiv.className = `message ${type}`;
     msgDiv.id = id;
 
-    // Sécurité: utiliser textContent par défaut, sauf pour les images (innerHTML limité)
-    if (content.includes('<img') && type === 'user') {
-      msgDiv.innerHTML = content;  // Accepte seulement les <img> côté utilisateur
+    if (type === 'bot') {
+      // Markdown → HTML → DOMPurify
+      const raw = window.marked ? marked.parse(content) : content;
+      msgDiv.innerHTML = window.DOMPurify
+        ? DOMPurify.sanitize(raw, {
+            ALLOWED_TAGS: ['p','br','strong','em','b','i','u','s','del',
+                           'h1','h2','h3','h4','h5','h6',
+                           'ul','ol','li','blockquote',
+                           'code','pre','hr','a','table',
+                           'thead','tbody','tr','th','td'],
+            ALLOWED_ATTR: ['href', 'class', 'target', 'rel'],
+          })
+        : raw;
+    } else if (type === 'user' && content.includes('<img')) {
+      msgDiv.innerHTML = content;   // images uploadées par l'utilisateur
     } else {
-      msgDiv.textContent = content;
+      msgDiv.textContent = content; // messages utilisateur et loading — texte brut
     }
 
     chatZone.appendChild(msgDiv);

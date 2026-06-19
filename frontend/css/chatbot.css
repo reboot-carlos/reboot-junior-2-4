@@ -108,6 +108,128 @@
   font-style: italic;
 }
 
+/* ============================================================
+   MARKDOWN dans les messages bot
+   ============================================================ */
+
+.message.bot p {
+  margin: 0 0 0.6em;
+  line-height: 1.65;
+}
+.message.bot p:last-child { margin-bottom: 0; }
+
+/* Titres */
+.message.bot h1, .message.bot h2, .message.bot h3,
+.message.bot h4, .message.bot h5, .message.bot h6 {
+  color: var(--primary);
+  margin: 0.75em 0 0.35em;
+  line-height: 1.25;
+  font-weight: 700;
+}
+.message.bot h1 { font-size: 1.2em; }
+.message.bot h2 { font-size: 1.1em; }
+.message.bot h3 { font-size: 1em; }
+.message.bot h4, .message.bot h5, .message.bot h6 { font-size: 0.95em; }
+
+/* Listes */
+.message.bot ul,
+.message.bot ol {
+  margin: 0.4em 0 0.6em 1.3em;
+  padding: 0;
+}
+.message.bot li {
+  margin: 0.2em 0;
+  line-height: 1.5;
+}
+.message.bot ul { list-style: disc; }
+.message.bot ol { list-style: decimal; }
+
+/* Code inline */
+.message.bot code {
+  background: rgba(0, 212, 255, 0.12);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 4px;
+  padding: 0.1em 0.4em;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.88em;
+  color: #7dd3fc;
+  word-break: break-all;
+}
+
+/* Blocs de code */
+.message.bot pre {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-left: 3px solid var(--primary);
+  border-radius: 6px;
+  padding: 0.75em 1em;
+  overflow-x: auto;
+  margin: 0.6em 0;
+}
+.message.bot pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.85em;
+  color: #e2e8f0;
+  word-break: normal;
+}
+
+/* Blockquote */
+.message.bot blockquote {
+  border-left: 3px solid var(--accent);
+  margin: 0.5em 0;
+  padding: 0.3em 0.8em;
+  background: rgba(255, 215, 0, 0.06);
+  border-radius: 0 4px 4px 0;
+  color: #d1c08a;
+  font-style: italic;
+}
+
+/* Séparateur */
+.message.bot hr {
+  border: none;
+  border-top: 1px solid rgba(0, 212, 255, 0.25);
+  margin: 0.75em 0;
+}
+
+/* Liens */
+.message.bot a {
+  color: var(--primary);
+  text-decoration: underline;
+  word-break: break-all;
+}
+.message.bot a:hover { color: var(--accent); }
+
+/* Gras / Italique */
+.message.bot strong, .message.bot b { color: #fff; font-weight: 700; }
+.message.bot em, .message.bot i    { color: #c8d8e8; font-style: italic; }
+
+/* Barré */
+.message.bot del, .message.bot s { opacity: 0.55; text-decoration: line-through; }
+
+/* Tables */
+.message.bot table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.6em 0;
+  font-size: 0.88em;
+}
+.message.bot th,
+.message.bot td {
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  padding: 0.3em 0.6em;
+  text-align: left;
+}
+.message.bot th {
+  background: rgba(0, 212, 255, 0.15);
+  color: var(--primary);
+  font-weight: 700;
+}
+.message.bot tr:nth-child(even) {
+  background: rgba(255, 255, 255, 0.03);
+}
+
 /* Suggestions */
 #suggestions {
   width: 100%;

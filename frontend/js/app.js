@@ -18,6 +18,14 @@ class MyChat {
   }
 
   start() {
+    // Configurer marked.js si disponible
+    if (window.marked) {
+      marked.setOptions({
+        breaks: true,   // \n → <br> dans les paragraphes
+        gfm: true,      // GitHub Flavored Markdown (tables, strikethrough…)
+      });
+    }
+
     SIDEBAR.init();
     CHAT.init();
     this.setupMenus();
