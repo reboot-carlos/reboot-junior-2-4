@@ -41,9 +41,9 @@ class MyChat {
 
   setupMenus() {
     [
-      ['.langue-btn', 'langue-menu'],
-      ['.jeux-btn',   'jeux-menu'],
-      ['.emoji-btn',  'emoji-menu'],
+      ['#btn-langue', 'langue-menu'],
+      ['#btn-jeux',   'jeux-menu'],
+      ['#btn-emoji',  'emoji-menu'],
     ].forEach(([btnSel, menuId]) => {
       const btn  = document.querySelector(btnSel);
       const menu = document.getElementById(menuId);

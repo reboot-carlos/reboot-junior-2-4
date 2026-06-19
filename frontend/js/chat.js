@@ -205,13 +205,14 @@ const CHAT = {
 
     const f = t.floating;
     if (f) {
-      set('.jeux-btn',   f.games);
-      set('.langue-btn', f.languages);
-      // Bouton emoji : conserver l'emoji actuel devant le mot traduit
-      const emojiBtn = document.querySelector('.emoji-btn');
+      const jeuxBtn   = document.getElementById('btn-jeux');
+      const langueBtn = document.getElementById('btn-langue');
+      const emojiBtn  = document.getElementById('btn-emoji');
+
+      if (jeuxBtn)   jeuxBtn.textContent   = f.games;
+      if (langueBtn) langueBtn.textContent = f.languages;
       if (emojiBtn) {
-        const parts = emojiBtn.textContent.trim().split(' ');
-        const currentEmoji = parts.length > 1 ? parts[0] : '😊';
+        const currentEmoji = emojiBtn.textContent.trim().split(' ')[0] || '😊';
         emojiBtn.textContent = currentEmoji + ' ' + f.emoji;
       }
     }
@@ -386,7 +387,7 @@ const CHAT = {
     const h1 = document.querySelector('header h1');
     if (h1) h1.textContent = emoji + " my'chat";
 
-    const emojiBtn = document.querySelector('.emoji-btn');
+    const emojiBtn = document.getElementById('btn-emoji');
     if (emojiBtn) {
       const word = this.translations[this.currentLanguage]?.floating?.emoji || 'Emoji';
       emojiBtn.textContent = emoji + ' ' + word;
