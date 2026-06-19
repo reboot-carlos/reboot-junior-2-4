@@ -33,6 +33,7 @@ class MyChat {
     this.setupColors();
     this.setupEmojis();
     this.setupAddContent();
+    this.setupGames();
     console.log('✅ my\'chat prêt !');
   }
 
@@ -100,6 +101,33 @@ class MyChat {
         }
         document.getElementById('emoji-menu')?.classList.remove('active');
       });
+    });
+  }
+
+  // ── Jeux ─────────────────────────────────────────────────────
+
+  setupGames() {
+    const zone     = document.getElementById('jeux-zone');
+    const closeBtn = document.getElementById('jeu-fermer');
+
+    document.querySelectorAll('.jeu-option[data-game]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.getElementById('jeux-menu')?.classList.remove('active');
+        zone?.classList.add('active');
+        GAMES.launch(btn.dataset.game);
+      });
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      GAMES.stop();
+      zone?.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && zone?.classList.contains('active')) {
+        GAMES.stop();
+        zone.classList.remove('active');
+      }
     });
   }
 

@@ -596,7 +596,8 @@
   border: 2px solid var(--primary);
   background: var(--dark);
   display: block;
-  margin: var(--spacing-md) 0;
+  margin: var(--spacing-md) auto 0;
+  max-width: 100%;
 }
 
 .score {

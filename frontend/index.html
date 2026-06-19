@@ -58,9 +58,9 @@
     <!-- Boutons flottants -->
     <button class="floating-btn jeux-btn">🎮 Jeux</button>
     <div class="jeux-menu" id="jeux-menu">
-      <button class="jeu-option">🦕 Dinosaure</button>
-      <button class="jeu-option">🐍 Serpent</button>
-      <button class="jeu-option">🧩 Tetris</button>
+      <button class="jeu-option" data-game="dinosaure">🦕 Dinosaure</button>
+      <button class="jeu-option" data-game="serpent">🐍 Serpent</button>
+      <button class="jeu-option" data-game="tetris">🧩 Tetris</button>
     </div>
 
     <button class="floating-btn emoji-btn">😊 Emoji</button>
@@ -155,7 +155,19 @@
   <script src="/static/js/characters.js"></script>
   <script src="/static/js/sidebar.js"></script>
   <script src="/static/js/chat.js"></script>
+  <script src="/static/js/games.js"></script>
   <script src="/static/js/app.js"></script>
+
+  <!-- Overlay plein-écran pour les jeux -->
+  <div id="jeux-zone">
+    <div class="jeu-container" style="text-align:center">
+      <div class="jeu-header">
+        <h2 id="jeu-titre">🎮 Jeu</h2>
+        <button class="jeu-fermer" id="jeu-fermer">✕</button>
+      </div>
+      <canvas id="game-canvas"></canvas>
+    </div>
+  </div>
 
   <!-- Wiring sans onclick — tout est géré dans app.js -->
   <script>
