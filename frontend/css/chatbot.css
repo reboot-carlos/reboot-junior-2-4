@@ -2,6 +2,28 @@
    CHATBOT - Zone de chat et messages
    ============================================================ */
 
+/* Bouton Accueil dans le header */
+.btn-accueil {
+  margin-left: auto;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-radius: var(--border-radius-md);
+  padding: 0.4rem 0.8rem;
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: all var(--transition-normal);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btn-accueil:hover {
+  background: rgba(255,255,255,0.3);
+  border-color: white;
+  transform: scale(1.08);
+}
+
 /* Zone de chat */
 #zone-chat {
   width: 100%;

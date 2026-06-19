@@ -372,23 +372,14 @@ const CHAT = {
    * Ajoute un lien à la discussion
    */
   addLink() {
-    const url = prompt('Colle le lien (URL) :');
-    if (url && url.trim()) {
-      const linkText = prompt('Quel titre pour ce lien ?') || 'Lien';
-      const message = `🔗 ${linkText}\n${url}`;
-      this.addMessage('user', message);
-      this.askQuestion(message);
-      this.closeAddMenu();
-    }
-  },
+    document.getElementById('add-content-menu')?.classList.remove('active');
+    document.getElementById('add-content-menu-suggestion')?.classList.remove('active');
 
-  /**
-   * Ferme le menu ajouter
-   */
-  closeAddMenu() {
-    const menu = document.getElementById('add-content-menu');
-    if (menu) {
-      menu.classList.remove('active');
-    }
+    const url = prompt('Colle le lien (URL) :');
+    if (!url || !url.trim()) return;
+
+    const linkText = prompt('Quel titre pour ce lien ?') || url;
+    this.addMessage('user', `🔗 ${linkText} — ${url.trim()}`);
+    this.askQuestion(`J'ai partagé ce lien : ${url.trim()} — qu'en penses-tu ?`);
   }
 };
